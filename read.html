@@ -17,6 +17,10 @@
         accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
       <a href="javascript:selectFile()">加载本地excel文件</a>
     </div>
+    <div id="panel">
+      <span>pano:</span>
+      <span id="panoid"></span>
+    </div>
 
     <p>结果输出：（下面表格可直接编辑导出）</p>
     <button type="button" onclick="translateExcel()" style="margin-bottom:10px">
@@ -295,43 +299,24 @@
           //var aim = td[4];
           //console.log(aim);
           panoService.getPano(Bvalue[i], 1000, function (result) {
-            var avaul = result ? result.svid : "此处无街景";
-            $(tr).find("td").eq(4).text(avaul);
+            // var avaul = result ? result.svid : "此处无街景";
+            // $(tr).find("td").eq(4).text(avaul);
             //aim.text(avaul);
             //console.log(result);
             //console.log(avual);
-
             //console.log(isDOM(tb));
             // var td = tb.rows[0].cells[0]; //获取0行0列的td单元格
             // td.innerHTML = avual;
-            sleep(2);
+            document.getElementById("panoid").innerHTML = result ? result.svid : "此处无街景";
+
             // $(tb).find("td").eq(4).text(avual);
           });
+          sleep(2);
+          var avaul = document.getElementById("panoid").innerHTML;
+          $(tr).find("td").eq(4).text(avaul);
 
 
         }
-
-
-        /*
-        function table2csv(table) {
-          var csv = [];
-          $(table)
-            .find("tr")
-            .each(function () {
-              var temp = [];
-              $(this)
-                .find("td")
-                .each(function () {
-                  temp.push($(this).html());
-                });
-              temp.shift(); // 移除第一个
-              csv.push(temp.join(","));
-            });
-          csv.shift();
-          return csv.join("\n");
-        }*/
-
-
       }
 
       function sleep(delay) {

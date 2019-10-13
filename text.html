@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="panel">
+        <span>pano:</span>
+        <span id="panoid"></span>
+    </div>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77">
+    </script>
+    <script>
+        var panoService = new qq.maps.PanoramaService();
+        var latLng = [{
+            lat: 30.65643045,
+            lng: 104.0672425
+        }, {
+            lat: 30.68105431,
+            lng: 104.029016
+        }, {
+            lat: 30.68234829,
+            lng: 104.0725202
+        }]
+        for (var i = 0; i < 3; i++) {
+            panoService.getPano(latLng[i], 1000, function (result) {
+                document.getElementById("panoid").innerHTML = result ? result.svid : "此处无街景";
+                console.log(result.id);
+            });
+        }
+    </script>
+</body>
+
+</html>

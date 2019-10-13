@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>腾讯地图-简单地图示例</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            width: 100%;
+            height: 100%
+        }
+
+        #panel {
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            margin-left: -100px;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="panel">
+        <span>pano:</span>
+        <span id="panoid"></span>
+    </div>
+    <div id="container" style="width:603px;height:300px"></div>
+    <script type="text/javascript">
+        var radius = 1000;
+        var map = new qq.maps.Map(document.getElementById("container"), {
+            // 地图的中心地理坐标。
+            center: new qq.maps.LatLng(39.916527, 116.397128)
+        });
+
+        var panoLayer = new qq.maps.PanoramaLayer();
+        panoLayer.setMap(map);
+        var panoService = new qq.maps.PanoramaService();
+        qq.maps.event.addListener(map, 'click', function (evt) {
+            console.log(evt.latLng);
+            panoService.getPano(evt.latLng, 1000, function (result) {
+                document.getElementById("panoid").innerHTML = result ? result.svid : "此处无街景";
+                console.log(result);
+            });
+        });
+    </script>
+</body>
+
+</html>
